@@ -22,9 +22,8 @@ function PauseState:enter(params)
 end
 
 function PauseState:update(dt)
-    -- stop the bird, timer
+    -- stop the bird
     self.bird.dy = 0
-    self.timer = 0
 
     if love.keyboard.wasPressed('p') then
         -- get the bird moving again, resume game
