@@ -13,9 +13,10 @@ CountdownState = Class{__includes = BaseState}
 -- takes 0.75 second to count down each time
 local COUNTDOWN_TIME = 0.75
 
-function CountdownState:init()
+function CountdownState:enter(params)
     self.count = 3
     self.timer = 0
+    self.highScore = params.highScore
 end
 
 --[[
@@ -35,7 +36,9 @@ function CountdownState:update(dt)
                 bird = Bird(),
                 pipePairs = {},
                 timer = 0,
-                score = 0
+                score = 0,
+                highScore = self.highScore,
+                highScoreTrue = false
             })
         end
     end
