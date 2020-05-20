@@ -28,7 +28,8 @@
     - Made vertical location of gaps differ more from pipe pair to pipe pair
     - Made bird stop on the ground, even after game is lost; the bird remains on the 
       screen after the loss
-    - Made bird fall to the ground on score screen after colliding with a pipe
+    - Made bird fall to the ground on score screen in front of pipes after colliding with a pipe
+    - Added high score functionality
     - Added "utility.lua" file to keep global constants in one place
     - Other small changes to game and code
 ]]
@@ -126,7 +127,7 @@ function love.load()
         ['score'] = function() return ScoreState() end,
         ['pause'] = function() return PauseState() end
     }
-    gStateMachine:change('title')
+    gStateMachine:change('title', {highScore = loadHighScores()})
 
     -- initialize input table
     love.keyboard.keysPressed = {}
@@ -187,4 +188,20 @@ function love.draw()
     love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT - GROUND_HEIGHT)
     
     push:finish()
+end
+
+function loadHighScores()
+    love.filesystem.setIdentity('fifty_bird')
+
+    -- if file doesn't exist, initialize it with one score of 0
+    if not love.filesystem.exists('fifty_bird.lst') then
+        love.filesystem.write('fifty_bird.lst', '0\n')
+    end
+
+    -- iterate over each line of file. Should only be one line
+    for line in love.filesystem.lines('fifty_bird.lst') do
+        score = tonumber(line)
+    end
+
+    return score
 end
