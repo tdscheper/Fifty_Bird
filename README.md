@@ -14,6 +14,7 @@ List of Updates:
 - Made vertical location of gaps differ more from pipe pair to pipe pair
 - Made bird stop on the ground, even after game is lost. The bird remains on the 
   screen after the loss.
-- Made bird fall to the ground on score screen after colliding with a pipe
+- Made bird fall to the ground in front of pipes on score screen after colliding with a pipe
+- Added high score functionality
 - Added "utility.lua" file to keep global constants in one place
 - Other small changes to game and code
