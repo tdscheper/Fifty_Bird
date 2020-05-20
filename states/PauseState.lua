@@ -1,5 +1,5 @@
 --[[
-    Pause State
+    PauseState Class
     
     Author: Tommy Scheper
     tdscheper@gmail.com
