@@ -21,18 +21,27 @@ local MEDAL_HEIGHT = 50
     from the play state so we know what to render to the State.
 ]]
 function ScoreState:enter(params)
-    self.score = params.score
     self.bird = params.bird
+    self.pipePairs = params.pipePairs
+    self.score = params.score
+    self.highScore = params.highScore
+    self.highScoreTrue = params.highScoreTrue
     self.collided = params.collided
+    self.timer = 0
 end
 
 function ScoreState:update(dt)
+    self.timer = self.timer + 1
+   
     if self.collided then
         self.bird:fall_to_ground(dt) 
     end
-    -- go back to play if enter is pressed
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('countdown')
+
+    -- go back to play if enter is pressed. Allow a few seconds to wait
+    if self.timer > 3 then
+        if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            gStateMachine:change('countdown', {highScore = self.highScore})
+        end
     end
 end
 
@@ -41,6 +50,9 @@ function ScoreState:render()
     silver = love.graphics.newImage('images/silver_medal.png')
     gold = love.graphics.newImage('images/gold_medal.png')
     
+    for k, pair in pairs(self.pipePairs) do
+        pair:render()
+    end
     self.bird:render()
     
     -- simply render medal, score to the middle of the screen
@@ -53,6 +65,12 @@ function ScoreState:render()
     end
 
     love.graphics.setFont(mediumFont)
-    love.graphics.printf('Score: ' .. tostring(self.score), 0, 130, VIRTUAL_WIDTH, 'center')
-    love.graphics.printf('Press Enter to Play Again!', 0, 150, VIRTUAL_WIDTH, 'center')
+    if not self.highScoreTrue then
+        love.graphics.printf('Score: ' .. tostring(self.score), 0, 130, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Tap to Play Again!', 0, 150, VIRTUAL_WIDTH, 'center')
+    else
+        love.graphics.printf('New High Score!', 0, 130, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Score: ' .. tostring(self.score), 0, 150, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Tap to Play Again!', 0, 170, VIRTUAL_WIDTH, 'center')
+    end
 end
