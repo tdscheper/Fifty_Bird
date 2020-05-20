@@ -22,6 +22,8 @@ function PlayState:enter(params)
     self.pipePairs = params.pipePairs
     self.timer = params.timer
     self.score = params.score
+    self.highScore = params.highScore
+    self.highScoreTrue = params.highScoreTrue
 end
 
 function PlayState:update(dt)
@@ -78,7 +80,8 @@ function PlayState:update(dt)
             bird = self.bird, 
             pipePairs = self.pipePairs,
             timer = self.timer,
-            score = self.score
+            score = self.score,
+            highScore = self.highScore
         })
     end
 
@@ -90,9 +93,18 @@ function PlayState:update(dt)
                 sounds['explosion']:play()
                 sounds['hurt']:play()
 
+                if self.score > self.highScore then
+                    self.highScore = self.score
+                    love.filesystem.write('fifty_bird.lst', tostring(self.highScore) .. '\n')
+                    self.highScoreTrue = true
+                end
+
                 gStateMachine:change('score', {
-                    score = self.score,
                     bird = self.bird,
+                    pipePairs = self.pipePairs,
+                    score = self.score,
+                    highScore = self.highScore,
+                    highScoreTrue = self.highScoreTrue,
                     collided = collide
                 })
             end
@@ -108,9 +120,18 @@ function PlayState:update(dt)
         sounds['explosion']:play()
         sounds['hurt']:play()
 
+        if self.score > self.highScore then
+            self.highScore = self.score
+            love.filesystem.write('fifty_bird.lst', tostring(self.highScore) .. '\n')
+            self.highScoreTrue = true
+        end
+
         gStateMachine:change('score', {
-            score = self.score,
             bird = self.bird,
+            pipePairs = self.pipePairs,
+            score = self.score,
+            highScore = self.highScore,
+            highScoreTrue = self.highScoreTrue,
             collided = collide
         })
     end
