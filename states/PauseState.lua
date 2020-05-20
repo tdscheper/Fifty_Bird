@@ -1,5 +1,5 @@
 --[[
-    TitleScreenState Class
+    Pause State
     
     Author: Tommy Scheper
     tdscheper@gmail.com
@@ -17,6 +17,8 @@ function PauseState:enter(params)
     self.pipePairs = params.pipePairs
     self.timer = params.timer
     self.score = params.score
+    self.highScore = params.highScore
+    self.highScoreTrue = params.highScoreTrue
     love.audio.pause(sounds['music'])
     sounds['pause']:play()
 end
@@ -32,7 +34,9 @@ function PauseState:update(dt)
             bird = self.bird,
             pipePairs = self.pipePairs,
             timer = self.timer,
-            score = self.score
+            score = self.score,
+            highScore = self.highScore,
+            highScoreTrue = self.highScoreTrue
         })
     end
 end
