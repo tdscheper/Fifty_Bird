@@ -10,13 +10,13 @@
 
 TitleScreenState = Class{__includes = BaseState}
 
-function TitleScreenState:init()
-    -- nothing
+function TitleScreenState:enter(params)
+    self.highScore = params.highScore
 end
 
 function TitleScreenState:update(dt)
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('countdown')
+        gStateMachine:change('countdown', {highScore = self.highScore})
     end
 end
 
@@ -26,4 +26,6 @@ function TitleScreenState:render()
 
     love.graphics.setFont(mediumFont)
     love.graphics.printf('Press Enter', 0, 100, VIRTUAL_WIDTH, 'center')
+
+    love.graphics.printf('High Score: ' .. tostring(self.highScore), 0, VIRTUAL_HEIGHT - 64, VIRTUAL_WIDTH, 'center')
 end
