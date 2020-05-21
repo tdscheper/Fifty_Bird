@@ -5,8 +5,8 @@ This is Assignment 1 of Harvard's edX GD50 class. The instructor, Colton Ogden, 
 
 List of Updates:
 
-- Added medals: bronze for scores of 5-9, silver for scores of 10-19, and gold 
-  for scores of 20 and above.
+- Added medals: bronze for scores of 15-24, silver for scores of 25-34, and gold 
+  for scores of 35 and above.
 - Added pause screen with a sound effect
 - Implemented pipe gap length variability
 - Implemented variability in space between pipes
