@@ -16,5 +16,4 @@ List of Updates:
   screen after the loss.
 - Made bird fall to the ground in front of pipes on score screen after colliding with a pipe
 - Added high score functionality
-- Added "utility.lua" file to keep global constants in one place
 - Other small changes to game and code
